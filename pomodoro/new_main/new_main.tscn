@@ -1,0 +1,181 @@
+[gd_scene load_steps=11 format=3 uid="uid://bphlrvg70mgo"]
+
+[ext_resource type="Texture2D" uid="uid://jp3f0g6kkfes" path="res://icon/tomato.png" id="1_2lpk7"]
+[ext_resource type="Script" path="res://new_main/new_main.gd" id="1_nnh47"]
+[ext_resource type="FontFile" uid="uid://ghx0ksqqtljh" path="res://fonts/LuckiestGuy-Regular.ttf" id="3_idx81"]
+[ext_resource type="LabelSettings" uid="uid://cxwkufq8d4ita" path="res://fonts/LG_72_Red.tres" id="3_w1o7y"]
+[ext_resource type="FontFile" uid="uid://ckyoijie24mlt" path="res://fonts/gemunu-libre-v8-latin-700.ttf" id="4_dm206"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_me55s"]
+bg_color = Color(0.607843, 0.870588, 0.67451, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 10
+anti_aliasing = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_mctom"]
+font = ExtResource("4_dm206")
+font_size = 43
+font_color = Color(0.968627, 0.960784, 0.866667, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0.843137, 0.305882, 0.305882, 0.176471)
+
+[sub_resource type="Animation" id="Animation_72mc2"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer/VBoxContainer/TextureRect:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fpks6"]
+resource_name = "wiggle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer/VBoxContainer/TextureRect:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.333333, 0.6, 0.766667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lvwug"]
+_data = {
+"RESET": SubResource("Animation_72mc2"),
+"wiggle": SubResource("Animation_fpks6")
+}
+
+[node name="NewMain" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nnh47")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_me55s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pomodoro"
+label_settings = ExtResource("3_w1o7y")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_2lpk7")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/TextureRect"]
+custom_minimum_size = Vector2(100, 0)
+layout_direction = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -28.5
+offset_right = 63.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(50, 0)
+text = "00:00"
+label_settings = SubResource("LabelSettings_mctom")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lvwug")
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+offset_left = 104.0
+offset_top = 883.0
+offset_right = 604.0
+offset_bottom = 1003.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
+
+[node name="StartButton" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.905882, 0.188235, 0.356863, 1)
+theme_override_constants/outline_size = 100
+theme_override_fonts/font = ExtResource("3_idx81")
+theme_override_font_sizes/font_size = 35
+text = "Start"
+flat = true
+icon_alignment = 1
+
+[node name="ResetButton" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.905882, 0.188235, 0.356863, 1)
+theme_override_constants/outline_size = 100
+theme_override_fonts/font = ExtResource("3_idx81")
+theme_override_font_sizes/font_size = 35
+text = "Reset"
+flat = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="MarginContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ResetButton" to="." method="_on_reset_button_pressed"]
